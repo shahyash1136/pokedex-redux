@@ -1,0 +1,17 @@
+.footer__bottom {
+  height: 40px;
+  background-color: #ef5350;
+}
+
+.footer__bottom p {
+  margin: 0px;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+}

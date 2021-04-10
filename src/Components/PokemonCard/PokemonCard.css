@@ -1,0 +1,52 @@
+.card {
+  background: aliceblue;
+  padding: 10px;
+  border-radius: 15px;
+  display: block;
+  text-decoration: none;
+  color: #000000;
+  transition: all 0.5s linear;
+  text-align: center;
+}
+
+.card:hover {
+  -ms-box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.5);
+  -o-box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  color: #000000;
+}
+
+.card img {
+  width: 120px;
+  height: 120px;
+  margin: auto;
+}
+
+.card-body {
+  padding: 0;
+}
+
+.card__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.card-title {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  text-transform: capitalize;
+  font-size: 22px;
+}
+.card-subtitle {
+  text-align: right;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.card-subtitle i {
+  font-style: normal;
+}
