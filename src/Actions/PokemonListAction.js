@@ -15,6 +15,7 @@ export const GetPokemonList = (page) => async dispatch => {
         dispatch({
             type: 'POKEMON_LIST_SUCCESS',
             payload: res.data,
+            pageNum: page,
         })
 
 

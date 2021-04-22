@@ -9,7 +9,7 @@ const PokemonCard = ({ pokemon }) => {
 
     return (
         <NavLink to={`/pokemon/${pokemon.name}`} className="card">
-            <CardImg top width="100%" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemonNum}.svg`} alt={pokemon.name} />
+            <CardImg top width="100%" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonNum}.png`} alt={pokemon.name} />
             <CardBody>
                 <div className="card__bottom">
                     <CardTitle className="mb-0" tag="h1">{pokemon.name}</CardTitle>

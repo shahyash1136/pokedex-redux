@@ -1,6 +1,11 @@
 .footer__bottom {
   height: 40px;
   background-color: #ef5350;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
 }
 
 .footer__bottom p {
