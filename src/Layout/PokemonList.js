@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { v4 } from 'uuid'
 import { GetPokemonList } from '../Actions/PokemonListAction'
 import { Container, Col, Spinner, Form, Button, Input } from 'reactstrap';
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -17,7 +18,7 @@ const PokemonList = () => {
 
 
     const markup = pokemonListState.data.map(pokemon => {
-        return <Col className="mt-3 mb-3 col-md-4 col-lg-3 col-sm-6 col-12 " key={pokemon.name}>
+        return <Col className="mt-3 mb-3 col-md-4 col-lg-3 col-sm-6 col-12 " key={v4()}>
             <PokemonCard pokemon={pokemon} />
         </Col>
     })

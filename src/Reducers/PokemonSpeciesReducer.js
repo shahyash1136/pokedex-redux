@@ -4,20 +4,20 @@ const initailState = {
     error: '',
 }
 
-const PokemonReducer = (state = initailState, action) => {
+const PokemonSpeciesReducer = (state = initailState, action) => {
     switch (action.type) {
-        case 'POKEMON_DATA_LOADING':
+        case 'POKEMON_SPECIES_LOADING':
             return {
                 ...state,
                 loading: true,
             }
-        case 'POKEMON_DATA_FAIL':
+        case 'POKEMON_SPECIES_FAIL':
             return {
                 ...state,
                 loading: false,
                 error: action.payload,
             }
-        case 'POKEMON_DATA_SUCCESS':
+        case 'POKEMON_SPECIES_SUCCESS':
             return {
                 ...state,
                 loading: false,
@@ -30,4 +30,4 @@ const PokemonReducer = (state = initailState, action) => {
     }
 }
 
-export default PokemonReducer;
+export default PokemonSpeciesReducer;
