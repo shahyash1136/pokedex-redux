@@ -9,7 +9,7 @@ const PokemonCard = ({ pokemon }) => {
   const number = pokemonNum.toString().padStart(3, "0");
 
   return (
-    <NavLink to={`/pokemon/${pokemon.name}`} className='card'>
+    <NavLink to={`/pokemon/${pokemon.name}`} className='card pokemonCard'>
       <CardImg
         top
         width='100%'

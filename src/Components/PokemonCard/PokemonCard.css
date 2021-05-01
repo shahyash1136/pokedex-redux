@@ -1,4 +1,4 @@
-.card {
+.pokemonCard {
   background: aliceblue;
   padding: 10px;
   border-radius: 15px;
@@ -9,7 +9,7 @@
   text-align: center;
 }
 
-.card:hover {
+.pokemonCard:hover {
   -ms-box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.5);
   -o-box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.5);
@@ -17,13 +17,13 @@
   color: #000000;
 }
 
-.card img {
+.pokemonCard img {
   width: 120px;
   height: 120px;
   margin: auto;
 }
 
-.card-body {
+.pokemonCard .card-body {
   padding: 0;
 }
 

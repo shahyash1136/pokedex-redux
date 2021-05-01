@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { RegisterUser } from "../Actions/RegisterAction";
 import {
   Container,
   Form,
@@ -15,14 +17,45 @@ import {
 } from "reactstrap";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(RegisterUser(userData.name, userData.email, userData.password));
+    console.log(userData);
+    setUserData({ name: "", email: "", password: "" });
+  };
+
   return (
-    <Container className='text-center'>
+    <Container className='text-center mt-4 pt-5'>
       <Row>
         <Col lg={6} className='offset-lg-3 mt-5'>
           <Card>
-            <Form>
+            <Form onSubmit={submitHandler}>
               <CardHeader className=''>SignUp here</CardHeader>
               <CardBody>
+                <FormGroup row>
+                  <Label for='name' sm={3}>
+                    Name
+                  </Label>
+                  <Col sm={9}>
+                    <Input
+                      type='text'
+                      name='name'
+                      id='name'
+                      placeholder='provide your full name'
+                      value={userData.name}
+                      onChange={(e) =>
+                        setUserData({ ...userData, name: e.target.value })
+                      }
+                    />
+                  </Col>
+                </FormGroup>
                 <FormGroup row>
                   <Label for='email' sm={3}>
                     Email
@@ -33,6 +66,10 @@ const SignUp = () => {
                       name='email'
                       id='email'
                       placeholder='provide your email'
+                      value={userData.email}
+                      onChange={(e) =>
+                        setUserData({ ...userData, email: e.target.value })
+                      }
                     />
                   </Col>
                 </FormGroup>
@@ -46,6 +83,10 @@ const SignUp = () => {
                       name='password'
                       id='password'
                       placeholder='your password here'
+                      value={userData.password}
+                      onChange={(e) =>
+                        setUserData({ ...userData, password: e.target.value })
+                      }
                     />
                   </Col>
                 </FormGroup>

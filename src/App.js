@@ -1,6 +1,11 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+// Importing Firebase Authentication Product
+import "firebase/auth";
+import "firebase/database";
+
 import PokemonList from "./Layout/PokemonList";
 import Pokemon from "./Layout/Pokemon";
 import PageNotFound from "./Layout/PageNotFound";
@@ -8,6 +13,9 @@ import SignIn from "./Layout/SignIn";
 import SignUp from "./Layout/SignUp";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
+
+/* //Initize Firebase
+firebase.initializeApp(firebaseConfig); */
 
 const App = () => {
   return (

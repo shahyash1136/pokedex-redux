@@ -1,6 +1,7 @@
 export default {
   apiKey: "AIzaSyCS4vo1uLu-ndr_WSlL8uTY-C5hx2YrQLs",
   authDomain: "pokedex-1e9d8.firebaseapp.com",
+  databaseURL: "https://pokedex-1e9d8-default-rtdb.firebaseio.com",
   projectId: "pokedex-1e9d8",
   storageBucket: "pokedex-1e9d8.appspot.com",
   messagingSenderId: "866306632522",
