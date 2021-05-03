@@ -1,8 +1,4 @@
-const initializeState = {
-  loading: true,
-  data: {},
-  error: "",
-};
+const initializeState = {};
 
 const AuthReducer = (state = initializeState, action) => {
   switch (action.type) {
@@ -10,6 +6,9 @@ const AuthReducer = (state = initializeState, action) => {
       return action.payload;
 
     case "LOGIN_USER":
+      return action.payload;
+
+    case "LOGOUT_USER":
       return action.payload;
 
     default:

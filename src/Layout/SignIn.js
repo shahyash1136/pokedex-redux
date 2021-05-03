@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LoginUser } from "../Actions/LoginAction";
+import { LoginUser } from "../Actions/AuthAction";
 import { Redirect } from "react-router-dom";
 import {
   Container,
@@ -25,14 +25,9 @@ const SignIn = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(LoginUser(userData.email, userData.password));
-    setUserData({ email: "", password: "" });
   };
 
-  useEffect(() => {
-    console.log(auth.user);
-  }, [auth]);
-
-  if (auth.user?.uid) {
+  if (auth?.uid) {
     return <Redirect to='/' />;
   }
 

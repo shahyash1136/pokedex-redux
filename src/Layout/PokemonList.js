@@ -5,7 +5,7 @@ import { GetPokemonList } from "../Actions/PokemonListAction";
 import { Container, Col, Spinner, Form, Button, Input } from "reactstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import PokemonCard from "../Components/PokemonCard/PokemonCard";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 const PokemonList = () => {
   const [pageNum, setPageNum] = useState(1);
@@ -13,6 +13,7 @@ const PokemonList = () => {
   const [btnValue, setBtnValue] = useState("");
   const dispatch = useDispatch();
   const pokemonListState = useSelector((state) => state.pokemon_list);
+  const auth = useSelector((state) => state.auth);
   let history = useHistory();
 
   useEffect(() => {
@@ -24,6 +25,10 @@ const PokemonList = () => {
     setBtnValue(searchValue);
     history.push(`/pokemon/${searchValue}`);
   };
+
+  if (!auth.uid) {
+    return <Redirect to='/signin' />;
+  }
 
   const markup = pokemonListState.data.map((pokemon) => {
     return (

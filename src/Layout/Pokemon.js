@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { GetPokemonData } from "../Actions/PokemonAction";
 import { GetPokemonSpecies } from "../Actions/PokemonSpeciesAction";
 import { Container, Row, Spinner } from "reactstrap";
@@ -30,11 +31,16 @@ const Pokemon = (props) => {
   const dispatch = useDispatch();
   const pokemonData = useSelector((state) => state.pokemon_data);
   const pokemonSpecies = useSelector((state) => state.pokemon_species);
+  const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(GetPokemonData(pokemonName));
     dispatch(GetPokemonSpecies(pokemonName));
   }, [dispatch, pokemonName]);
+
+  if (!auth.uid) {
+    return <Redirect to='/signin' />;
+  }
 
   let loader,
     pokemonNumber,
