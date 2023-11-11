@@ -38,9 +38,9 @@ const Pokemon = (props) => {
     dispatch(GetPokemonSpecies(pokemonName));
   }, [dispatch, pokemonName]);
 
-  if (!auth.uid) {
+  /* if (!auth.uid) {
     return <Redirect to='/signin' />;
-  }
+  } */
 
   let loader,
     pokemonNumber,

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LoginUser } from "../Actions/AuthAction";
 import { Redirect } from "react-router-dom";
 import {
   Container,
@@ -24,7 +23,7 @@ const SignIn = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(LoginUser(userData.email, userData.password));
+    console.log(userData);
   };
 
   if (auth?.uid) {

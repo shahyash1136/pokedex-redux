@@ -26,9 +26,9 @@ const PokemonList = () => {
     history.push(`/pokemon/${searchValue}`);
   };
 
-  if (!auth.uid) {
+  /* if (!auth.uid) {
     return <Redirect to='/signin' />;
-  }
+  } */
 
   const markup = pokemonListState.data.map((pokemon) => {
     return (

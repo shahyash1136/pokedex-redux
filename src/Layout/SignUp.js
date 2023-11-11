@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { RegisterUser } from "../Actions/AuthAction";
 import {
   Container,
   Form,
@@ -19,7 +18,7 @@ import {
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
+
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -28,14 +27,13 @@ const SignUp = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(RegisterUser(userData.name, userData.email, userData.password));
     console.log(userData);
     setUserData({ name: "", email: "", password: "" });
   };
 
-  if (auth?.uid) {
+  /* if (auth?.uid) {
     return <Redirect to='/' />;
-  }
+  } */
 
   return (
     <Container className='text-center mt-4 pt-5'>

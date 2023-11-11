@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LogoutUser } from "../../Actions/AuthAction";
 import Logo from "../../assets/images/logo.png";
 import "./Header.css";
 import { Link } from "react-router-dom";
@@ -16,9 +15,6 @@ import {
   Container,
 } from "reactstrap";
 const Header = () => {
-  const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
-
   return (
     <Navbar expand='md'>
       <Container>
@@ -30,31 +26,18 @@ const Header = () => {
         <NavbarToggler />
         <Collapse navbar>
           <Nav className='ml-auto' navbar>
-            <NavbarText className='text-white'>
-              {auth.email ? auth.email : ""}
-            </NavbarText>
-            {auth.uid ? (
+            <>
               <NavItem>
-                <NavLink
-                  className='text-white'
-                  onClick={() => dispatch(LogoutUser())}>
-                  Logout
+                <NavLink tag={Link} to='/signup' className='text-white'>
+                  SignUp
                 </NavLink>
               </NavItem>
-            ) : (
-              <>
-                <NavItem>
-                  <NavLink tag={Link} to='/signup' className='text-white'>
-                    SignUp
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} to='/signin' className='text-white'>
-                    SignIn
-                  </NavLink>
-                </NavItem>
-              </>
-            )}
+              <NavItem>
+                <NavLink tag={Link} to='/signin' className='text-white'>
+                  SignIn
+                </NavLink>
+              </NavItem>
+            </>
           </Nav>
         </Collapse>
       </Container>
