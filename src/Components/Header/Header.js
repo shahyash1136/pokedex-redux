@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Logo from "../../assets/images/logo.png";
 import "./Header.css";
 import { Link } from "react-router-dom";
@@ -11,7 +10,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  NavbarText,
   Container,
 } from "reactstrap";
 const Header = () => {

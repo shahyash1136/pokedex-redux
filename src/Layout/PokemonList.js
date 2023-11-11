@@ -5,7 +5,7 @@ import { GetPokemonList } from "../Actions/PokemonListAction";
 import { Container, Col, Spinner, Form, Button, Input } from "reactstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import PokemonCard from "../Components/PokemonCard/PokemonCard";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const PokemonList = () => {
   const [pageNum, setPageNum] = useState(1);
@@ -13,7 +13,6 @@ const PokemonList = () => {
   const [btnValue, setBtnValue] = useState("");
   const dispatch = useDispatch();
   const pokemonListState = useSelector((state) => state.pokemon_list);
-  const auth = useSelector((state) => state.auth);
   let history = useHistory();
 
   useEffect(() => {

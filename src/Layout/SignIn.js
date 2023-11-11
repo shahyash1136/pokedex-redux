@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
 import {
   Container,
   Form,
@@ -17,18 +15,12 @@ import {
 } from "reactstrap";
 
 const SignIn = () => {
-  const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
   const [userData, setUserData] = useState({ email: "", password: "" });
 
   const submitHandler = (e) => {
     e.preventDefault();
     console.log(userData);
   };
-
-  if (auth?.uid) {
-    return <Redirect to='/' />;
-  }
 
   return (
     <Container className='text-center mt-4 pt-5'>

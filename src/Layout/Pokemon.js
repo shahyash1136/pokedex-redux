@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
 import { GetPokemonData } from "../Actions/PokemonAction";
 import { GetPokemonSpecies } from "../Actions/PokemonSpeciesAction";
 import { Container, Row, Spinner } from "reactstrap";
@@ -31,7 +30,6 @@ const Pokemon = (props) => {
   const dispatch = useDispatch();
   const pokemonData = useSelector((state) => state.pokemon_data);
   const pokemonSpecies = useSelector((state) => state.pokemon_species);
-  const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(GetPokemonData(pokemonName));
@@ -84,9 +82,7 @@ const Pokemon = (props) => {
     });
 
     let valueArr = [];
-    let maxVal = pokemonData.data.stats.map((stat) => {
-      return valueArr.push(stat.base_stat);
-    });
+
     stats = pokemonData.data.stats.map((stat) => {
       let maxValue = Math.max(...valueArr);
 
@@ -124,10 +120,10 @@ const Pokemon = (props) => {
       );
     });
 
+    // eslint-disable-next-line array-callback-return
     description = pokemonSpecies.data.flavor_text_entries.map((des) => {
-      if (des.language.name === "en" && des.version.name === "ruby") {
+      if (des.language.name === "en" && des.version.name === "ruby")
         return des.flavor_text;
-      }
     });
 
     hetchSteps = 255 * (pokemonSpecies.data.hatch_counter + 1);

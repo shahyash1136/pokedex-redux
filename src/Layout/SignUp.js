@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
 import {
   Container,
   Form,
@@ -17,8 +15,6 @@ import {
 } from "reactstrap";
 
 const SignUp = () => {
-  const dispatch = useDispatch();
-
   const [userData, setUserData] = useState({
     name: "",
     email: "",
