@@ -22,10 +22,10 @@ const App = () => {
     <Router>
       <Header />
       <Switch>
-        <Route exact path='/' component={PokemonList}></Route>
-        <Route path='/pokemon/:pokemonName' component={Pokemon}></Route>
-        <Route exact path='/signin' component={SignIn} />
-        <Route exact path='/signup' component={SignUp} />
+        <Route exact path='/pokedex' component={PokemonList}></Route>
+        <Route path='/pokedex/pokemon/:pokemonName' component={Pokemon}></Route>
+        <Route exact path='/pokedex/signin' component={SignIn} />
+        <Route exact path='/pokedex/signup' component={SignUp} />
         <Route exact path='*' component={PageNotFound} />
       </Switch>
       <Footer />

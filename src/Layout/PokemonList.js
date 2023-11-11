@@ -23,7 +23,7 @@ const PokemonList = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     setBtnValue(searchValue);
-    history.push(`/pokemon/${searchValue}`);
+    history.push(`/pokedex/pokemon/${searchValue}`);
   };
 
   /* if (!auth.uid) {
