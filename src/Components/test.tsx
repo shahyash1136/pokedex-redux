@@ -133,3 +133,89 @@ const DataGrid: React.FC<DataGridProps> = ({ columns, onSort }) => {
 };
 
 export default DataGrid;
+
+
+
+
+
+import { filterData, FilterOperator } from './yourFileContainingFilterData';
+
+type TestData = {
+  id: number;
+  name: string;
+  age: number;
+};
+
+const mockData: TestData[] = [
+  { id: 1, name: 'John', age: 25 },
+  { id: 2, name: 'Alice', age: 30 },
+  { id: 3, name: 'Bob', age: 20 },
+];
+
+describe('filterData', () => {
+  it('should filter data based on "contains" operator', () => {
+    const result = filterData(mockData, 'name', 'contains', 'li');
+    expect(result).toEqual([{ id: 2, name: 'Alice', age: 30 }]);
+  });
+
+  it('should filter data based on "equals" operator', () => {
+    const result = filterData(mockData, 'age', 'equals', '25');
+    expect(result).toEqual([{ id: 1, name: 'John', age: 25 }]);
+  });
+
+  it('should filter data based on "startsWith" operator', () => {
+    const result = filterData(mockData, 'name', 'startsWith', 'A');
+    expect(result).toEqual([{ id: 2, name: 'Alice', age: 30 }]);
+  });
+
+  it('should filter data based on "endsWith" operator', () => {
+    const result = filterData(mockData, 'name', 'endsWith', 'hn');
+    expect(result).toEqual([{ id: 1, name: 'John', age: 25 }]);
+  });
+
+  it('should handle "isEmpty" operator', () => {
+    const result = filterData(mockData, 'name', 'isEmpty', '');
+    expect(result).toEqual([{ id: 3, name: 'Bob', age: 20 }]);
+  });
+
+  it('should handle "isNotEmpty" operator', () => {
+    const result = filterData(mockData, 'name', 'isNotEmpty', '');
+    expect(result).toEqual([{ id: 1, name: 'John', age: 25 }, { id: 2, name: 'Alice', age: 30 }]);
+  });
+
+  it('should handle "=" operator', () => {
+    const result = filterData(mockData, 'age', '=', '25');
+    expect(result).toEqual([{ id: 1, name: 'John', age: 25 }]);
+  });
+
+  it('should handle "!=" operator', () => {
+    const result = filterData(mockData, 'age', '!=', '25');
+    expect(result).toEqual([{ id: 2, name: 'Alice', age: 30 }, { id: 3, name: 'Bob', age: 20 }]);
+  });
+
+  it('should handle ">" operator', () => {
+    const result = filterData(mockData, 'age', '>', '25');
+    expect(result).toEqual([{ id: 2, name: 'Alice', age: 30 }]);
+  });
+
+  it('should handle ">=" operator', () => {
+    const result = filterData(mockData, 'age', '>=', '25');
+    expect(result).toEqual([{ id: 1, name: 'John', age: 25 }, { id: 2, name: 'Alice', age: 30 }]);
+  });
+
+  it('should handle "<" operator', () => {
+    const result = filterData(mockData, 'age', '<', '30');
+    expect(result).toEqual([{ id: 1, name: 'John', age: 25 }, { id: 3, name: 'Bob', age: 20 }]);
+  });
+
+  it('should handle "<=" operator', () => {
+    const result = filterData(mockData, 'age', '<=', '25');
+    expect(result).toEqual([{ id: 1, name: 'John', age: 25 }, { id: 3, name: 'Bob', age: 20 }]);
+  });
+
+  it('should handle unknown operator and return the entire array', () => {
+    const result = filterData(mockData, 'name', 'unknownOperator' as FilterOperator, 'someValue');
+    expect(result).toEqual(mockData);
+  });
+});
+
