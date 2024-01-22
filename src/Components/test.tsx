@@ -219,3 +219,167 @@ describe('filterData', () => {
   });
 });
 
+
+Certainly! To make the date picker component more reusable, you can create a new component called `ReusableDatePicker` that accepts props for customization. Here's the refactored code:
+
+```jsx
+import React, { useEffect } from 'react';
+import { Grid } from '@mui/material';
+import dayjs, { Dayjs } from 'dayjs';
+import { DatePicker, DateValidationError } from '@mui/x-date-picker';
+import { useAppSelector, useAppDispatch } from '@store/store';
+import { selectedDateValue, setDateError } from '@store/features/global/globalSlice';
+import config from '@common/config';
+import { getdefaultDates } from '@/common/';
+
+interface ReusableDatePickerProps {
+  label: string;
+  value: Dayjs | null;
+  onChange: (newValue: Dayjs | null) => void;
+  minDate: Dayjs;
+  maxDate: Dayjs;
+  error: DateValidationError | 'emptyDate' | null;
+  onError: (newError: DateValidationError | 'emptyDate' | null) => void;
+}
+
+const ReusableDatePicker: React.FC<ReusableDatePickerProps> = ({
+  label,
+  value,
+  onChange,
+  minDate,
+  maxDate,
+  error,
+  onError,
+}) => {
+  const isWeekend = (value: Dayjs) => {
+    const day = value.day();
+    return day === 0 || day === 6;
+  };
+
+  const errorMessage = React.useMemo(() => {
+    switch (error) {
+      case 'maxDate':
+        return `${label} cannot be greater than or equal to ${label === 'Date 1' ? 'Date 2' : 'Date 1'}`;
+      case 'minDate':
+        return `Cannot select past dates for ${label}`;
+      case 'emptyDate':
+        return `${label} cannot be empty`;
+      case 'invalidDate':
+        return 'Invalid date';
+      case 'shouldDisableDate':
+        return 'Weekend date cannot be selected';
+      case 'disableFuture':
+        return `Cannot select future dates for ${label}`;
+      default:
+        return '';
+    }
+  }, [error, label]);
+
+  return (
+    <DatePicker
+      disableFuture={true}
+      label={label}
+      sx={{ width: '100%' }}
+      value={value}
+      shouldDisableDate={isWeekend}
+      onChange={onChange}
+      minDate={minDate}
+      maxDate={maxDate}
+      onerror={onError}
+      showDaysOutsideCurrentMonth={true}
+      slotProps={{
+        textField: {
+          helperText: errorMessage,
+        },
+      }}
+      openTo="day"
+      views={['year', 'month', 'day']}
+    />
+  );
+};
+
+const Dates = () => {
+  const { date } = useAppSelector((state) => state.global);
+  const dispatch = useAppDispatch();
+
+  const [valueOne, setValueOne] = React.useState<Dayjs | null>(dayjs(date.one));
+  const [valueTwo, setValueTwo] = React.useState<Dayjs | null>(dayjs(date.two));
+  const [valueOneError, setValueOneError] = React.useState<DateValidationError | 'emptyDate' | null>(null);
+  const [valueTwoError, setValueTwoError] = React.useState<DateValidationError | 'emptyDate' | null>(null);
+
+  useEffect(() => {
+    if (valueOne === null) {
+      setValueOneError('emptyDate');
+    }
+    if (valueTwoError === null) {
+      setValueTwoError('emptyDate');
+    }
+  }, [valueOne, valueTwo]);
+
+  const dateChangeHandler = (label: string, newValue: Dayjs | null, otherValue: Dayjs) => {
+    const isValid =
+      newValue === null ||
+      newValue.day() === 0 ||
+      newValue.day() === 6 ||
+      newValue >= otherValue ||
+      newValue.isValid() ||
+      newValue < dayjs(getdefaultDates()[`date_${label.toLowerCase()}`]).subtract(180, 'days');
+
+    if (label === 'One') {
+      setValueOne(newValue);
+    } else {
+      setValueTwo(newValue);
+    }
+
+    dispatch(
+      selectedDateValue({
+        one: label === 'One' ? newValue?.format(config.date_format) : valueOne?.format(config.date_format),
+        two: label === 'Two' ? newValue?.format(config.date_format) : valueTwo?.format(config.date_format),
+      })
+    );
+
+    dispatch(setDateError(!isValid));
+  };
+
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={6}>
+        <ReusableDatePicker
+          label="Date 1"
+          value={valueOne}
+          onChange={(newValue) => dateChangeHandler('One', newValue, valueTwo)}
+          minDate={dayjs(getdefaultDates().date_one).subtract(180, 'days')}
+          maxDate={dayjs(valueTwo).subtract(1, 'day')}
+          error={valueOneError}
+          onError={(newError) => setValueOneError(newError)}
+        />
+      </Grid>
+      <Grid item xs={6}>
+        <ReusableDatePicker
+          label="Date 2"
+          value={valueTwo}
+          onChange={(newValue) => dateChangeHandler('Two', newValue, valueOne)}
+          minDate={dayjs(getdefaultDates().date_two).subtract(180, 'days')}
+          maxDate={dayjs(getdefaultDates().date_two)}
+          error={valueTwoError}
+          onError={(newError) => setValueTwoError(newError)}
+        />
+      </Grid>
+    </Grid>
+  );
+};
+
+export default Dates;
+```
+
+This refactoring allows you to reuse the `ReusableDatePicker` component for both Date 1 and Date 2, reducing code duplication and making the component more maintainable.
+
+
+
+
+
+
+
+
+
+
