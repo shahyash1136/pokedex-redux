@@ -370,9 +370,71 @@ const Dates = () => {
 };
 
 export default Dates;
-```
+/////////////////////////////////////////////
+import { useState, useMemo } from 'react';
 
-This refactoring allows you to reuse the `ReusableDatePicker` component for both Date 1 and Date 2, reducing code duplication and making the component more maintainable.
+type Direction = 'asc' | 'desc';
+type FilterOperator = 'contains'; // Add more filter operators as needed
+
+interface SortingAndFilteringState<T> {
+  columnKey: keyof T;
+  direction: Direction;
+  filterValue: string;
+  filterColumnKey: keyof T;
+  filterOperator: FilterOperator;
+}
+
+interface SortingAndFilteringActions<T> {
+  onRequestSort: (colKey: keyof T, dir: Direction) => void;
+  onRequestFilter: (colKey: keyof T, operator: FilterOperator, filterVal: string) => void;
+}
+
+export function useSortingAndFiltering<T>(): [SortingAndFilteringState<T>, SortingAndFilteringActions<T>] {
+  const [state, setState] = useState<SortingAndFilteringState<T>>({
+    columnKey: '',
+    direction: 'asc',
+    filterValue: '',
+    filterColumnKey: '',
+    filterOperator: 'contains',
+  });
+
+  const onRequestSort = (colKey: keyof T, dir: Direction) => {
+    setState((prev) => ({ ...prev, columnKey: colKey, direction: dir }));
+  };
+
+  const onRequestFilter = (colKey: keyof T, operator: FilterOperator, filterVal: string) => {
+    setState((prev) => ({
+      ...prev,
+      filterOperator: operator,
+      filterColumnKey: colKey,
+      filterValue: filterVal,
+    }));
+  };
+
+  const visibleRows = useMemo(() => {
+    if (data) {
+      if (state.filterValue === '' && state.filterColumnKey === '' && state.filterOperator === 'contains') {
+        return stableSort(data, state.direction, state.columnKey);
+      } else {
+        return stableFilter(
+          stableSort(data, state.direction, state.columnKey),
+          state.filterColumnKey,
+          state.filterOperator,
+          state.filterValue
+        );
+      }
+    }
+  }, [data, state.filterValue, state.direction, state.columnKey, state.filterColumnKey, state.filterOperator]);
+
+  return [{ ...state }, { onRequestSort, onRequestFilter }];
+}
+const YourComponent = () => {
+  const [{ columnKey, direction, filterValue, filterColumnKey, filterOperator }, { onRequestSort, onRequestFilter }] =
+    useSortingAndFiltering<YourDataType>();
+
+  // Rest of your component code
+};
+
 
 
 
